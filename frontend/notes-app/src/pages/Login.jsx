@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +18,10 @@ export default function Login() {
       );
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
-        navigate("/");
+        toast.success("Login Successful! 🚀")
+        setTimeout(() => {
+          navigate("/");
+        }, 1000); // Navigate after 3 seconds
       }
       console.log("Signup successful", response.data);
     } catch (error) {
@@ -89,7 +93,20 @@ export default function Login() {
             Sign up
           </Link>
         </p>
+
       </div>
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000} // closes in 3 sec
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }
