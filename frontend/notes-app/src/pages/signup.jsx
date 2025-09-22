@@ -26,8 +26,12 @@ const navigate = useNavigate();
     }
   };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+          <div onClick={()=>navigate("/")} className="cursor-pointer flex-shrink-0 my-8 text-2xl font-bold text-blue-600">
+            MyApp
+          </div>
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+              
         <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-6">
           Sign Up
         </h2>

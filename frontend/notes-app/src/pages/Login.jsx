@@ -2,9 +2,11 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useAuth } from "../context/ContextProvider";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const login = useAuth();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,8 +19,9 @@ export default function Login() {
         }
       );
       if (response.data.success) {
+        login(response.data.user);
         localStorage.setItem("token", response.data.token);
-        toast.success("Login Successful! 🚀")
+        toast.success("Login Successful! 🚀");
         setTimeout(() => {
           navigate("/");
         }, 1000); // Navigate after 3 seconds
@@ -29,7 +32,13 @@ export default function Login() {
     }
   };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex-col flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+      <div
+        onClick={() => navigate("/")}
+        className="cursor-pointer flex-shrink-0 my-8 text-2xl font-bold text-blue-600"
+      >
+        MyApp
+      </div>
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 sm:p-8">
         <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-6">
           Login
@@ -93,9 +102,8 @@ export default function Login() {
             Sign up
           </Link>
         </p>
-
       </div>
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={3000} // closes in 3 sec
         hideProgressBar={false}
